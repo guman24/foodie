@@ -1,28 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/apis/service.dart';
 import 'package:foodie/src/pages/home_page.dart';
+import 'package:foodie/utils/const/Typograph.dart';
 import 'package:foodie/utils/const/colors.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-class NavPage extends StatelessWidget {
+class NavPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return NavPageStateful();
-  }
+  _NavPageState createState() => _NavPageState();
 }
 
-class NavPageStateful extends StatefulWidget {
-  @override
-  _NavPageStatefulState createState() => _NavPageStatefulState();
-}
-
-class _NavPageStatefulState extends State<NavPageStateful> {
+class _NavPageState extends State<NavPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
-    Homepage(),
+    HomePage(),
     Text(
       'Index 1: Likes',
       style: optionStyle,
@@ -38,6 +33,13 @@ class _NavPageStatefulState extends State<NavPageStateful> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ApiServices().getFoods();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsPalette.tealGrey.withOpacity(0.9),
@@ -45,61 +47,47 @@ class _NavPageStatefulState extends State<NavPageStateful> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: ColorsPalette.whiteLight,
+        decoration: BoxDecoration(
+            color: ColorsPalette.whiteLight,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-        ]),
+              BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+            ]),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right:15.0,top: 10,bottom: 30),
+            padding: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 10, bottom: 30),
             child: GNav(
                 gap: 8,
-                activeColor: ColorsPalette.tealLight,
+                activeColor: ColorsPalette.tealDark,
                 iconSize: 28,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 duration: Duration(milliseconds: 800),
                 tabBackgroundColor: ColorsPalette.tealGrey,
                 tabs: [
                   GButton(
-                    icon: LineIcons.home,
-                    iconColor: ColorsPalette.tealLight.withOpacity(0.5),
-                    text: 'Home',
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: ColorsPalette.tealLight
-                    ),
-                  ),
+                      icon: LineIcons.home,
+                      iconColor: Typograph.tabBarIconColor,
+                      text: 'Home',
+                      textStyle: Typograph.tabBarTitle),
                   GButton(
-                    icon: LineIcons.heart_o,
-                    iconColor: ColorsPalette.tealLight.withOpacity(0.5),
-                    text: 'Favourite',
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: ColorsPalette.tealLight
-                    ),
-                  ),
+                      icon: LineIcons.heart_o,
+                      iconColor: Typograph.tabBarIconColor,
+                      text: 'Favourite',
+                      textStyle: Typograph.tabBarTitle),
                   GButton(
-                    icon: LineIcons.location_arrow,
-                    iconColor: ColorsPalette.tealLight.withOpacity(0.5),
-                    text: 'Location',
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: ColorsPalette.tealLight
-                    ),
-                  ),
+                      icon: LineIcons.location_arrow,
+                      iconColor: Typograph.tabBarIconColor,
+                      text: 'Location',
+                      textStyle: Typograph.tabBarTitle),
                   GButton(
-                    icon: LineIcons.bell_o,
-                    iconColor: ColorsPalette.tealLight.withOpacity(0.5),
-                    text: 'Notification',
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: ColorsPalette.tealLight
-                    ),
-                  ),
+                      icon: LineIcons.bell_o,
+                      iconColor: Typograph.tabBarIconColor,
+                      text: 'Notification',
+                      textStyle: Typograph.tabBarTitle),
                 ],
                 selectedIndex: _selectedIndex,
                 onTabChange: (index) {
@@ -112,5 +100,4 @@ class _NavPageStatefulState extends State<NavPageStateful> {
       ),
     );
   }
-
 }

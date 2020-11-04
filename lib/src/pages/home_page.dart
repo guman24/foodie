@@ -1,59 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodie/blocs/cookie/cookie_bloc.dart';
+import 'package:foodie/blocs/food/food_bloc.dart';
 import 'package:foodie/src/widgets/home_flash_food.dart';
 import 'package:foodie/src/widgets/home_head.dart';
+import 'package:foodie/src/widgets/home_other_recipe.dart';
 import 'package:foodie/utils/config/size.dart';
 import 'package:foodie/utils/const/colors.dart';
-import 'package:line_icons/line_icons.dart';
 
-class Homepage extends StatelessWidget {
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return HomepageStateful();
+  }
+}
+
+class HomepageStateful extends StatefulWidget {
+  @override
+  _HomepageStatefulState createState() => _HomepageStatefulState();
+}
+
+class _HomepageStatefulState extends State<HomepageStateful> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-        // height: SizeConfig.screenHeight,
-        //   width: SizeConfig.screenWidth,
         child: Column(
       children: [
         Expanded(flex: 0, child: homeHeadWidget(context)),
-        Expanded(flex: 2, child: homeFlashFoodWidget()),
         Expanded(
-          flex: 1,
-          child: Container(
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ListTile(
-                    title: Text("Other Recipes"),
-                    trailing: IconButton(
-                      onPressed: () {},
-                      icon: Icon(LineIcons.angle_double_right),
-                      color: ColorsPalette.tealDark,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Container(
-                              height: 40,
-                              width: 50,
-                              color: Colors.green,
-                              margin: EdgeInsets.all(10),
-                              child: Text(index.toString()));
-                        }),
-                  ),
-                )
-              ],
-            ),
-          ),
-        )
+            flex: 2,
+            child: MultiBlocProvider(providers: [
+              BlocProvider<FoodBloc>(
+                create: (_) => FoodBloc(),
+              ),
+              BlocProvider<CookieBloc>(
+                create: (_) => CookieBloc(),
+              )
+            ], child: HomeFlashSection())),
+        Expanded(flex: 1, child: homeOtherRecipeWidget())
       ],
     ));
   }
