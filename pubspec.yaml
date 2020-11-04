@@ -32,6 +32,7 @@ dependencies:
   bloc: ^6.1.0
   http: ^0.12.2
   google_nav_bar: ^3.1.0
+  line_icons: ^0.2.0
 
 
 
@@ -66,6 +67,28 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: robotoBlack
+      fonts:
+        - asset: assets/fonts/robotoBlack.ttf
+    - family: robotoBold
+      fonts:
+        - asset: assets/fonts/robotoBold.ttf
+    - family: robotoLight
+      fonts:
+        - asset: assets/fonts/robotoLight.ttf
+    - family: Adobe_Song
+      fonts:
+        - asset: assets/fonts/ADOBESONGSTD-LIGHT.OTF
+    - family: Calibri_Normal
+      fonts:
+        - asset: assets/fonts/CALIBRI.TTF
+    - family: Calibri_Italic
+      fonts:
+        - asset: assets/fonts/CALIBRII.TTF
+    - family: Calibri_Light
+      fonts:
+        - asset: assets/fonts/CALIBRIL.TTF
   # fonts:
   #   - family: Schyler
   #     fonts:
