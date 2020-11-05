@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:foodie/models/food.dart';
+import 'package:foodie/models/recipe.dart';
 import 'package:http/http.dart';
 
 class ApiServices {
@@ -13,6 +13,8 @@ class ApiServices {
       'https://api.spoonacular.com/food/products/search?query=juice&apiKey=$apiKey';
   String cookieUrl =
       'https://api.spoonacular.com/food/products/search?query=cookie&apiKey=$apiKey';
+  String burgerUrl =
+      "https://api.spoonacular.com/food/menuItems/search?query=pizza&number=5&apiKey=$apiKey";
 
   Future<List<Recipe>> getFoods() async {
     try {
@@ -57,6 +59,22 @@ class ApiServices {
       Iterable cookieList = responseData['products'];
       cookies = cookieList.map((cookie) => Recipe.fromJson(cookie)).toList();
       return cookies;
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
+
+  Future<List<Recipe>> getBurgers() async {
+    try {
+      var burgers = List<Recipe>();
+      Response response =
+          await get(burgerUrl, headers: {'Content-Type': 'application/json'});
+      print("response status burger ${response.statusCode}");
+      Map<String, dynamic> responseData = json.decode(response.body);
+      print(responseData['menuItems'][0]);
+      Iterable burgerList = responseData['menuItems'];
+      burgers = burgerList.map((burger) => Recipe.fromJson(burger)).toList();
+      return burgers;
     } catch (err) {
       throw Exception(err.toString());
     }

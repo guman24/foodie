@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodie/blocs/cookie/cookie_bloc.dart';
-import 'package:foodie/blocs/cookie/cookie_event.dart';
-import 'package:foodie/blocs/cookie/cookie_state.dart';
-import 'package:foodie/blocs/food/food_bloc.dart';
-import 'package:foodie/blocs/food/food_event.dart';
-import 'package:foodie/blocs/food/food_state.dart';
+import 'package:foodie/blocs/recipe/recipe_bloc.dart';
+import 'package:foodie/blocs/recipe/recipe_event.dart';
+import 'package:foodie/blocs/recipe/recipe_state.dart';
 import 'package:foodie/utils/config/size.dart';
+import 'package:foodie/utils/const/Typograph.dart';
 import 'package:foodie/utils/const/circle_indicator.dart';
 import 'package:foodie/utils/const/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -18,17 +16,14 @@ class HomeFlashSection extends StatefulWidget {
 }
 
 class _HomeFlashSectionState extends State<HomeFlashSection> {
-  FoodBloc _foodBloc;
-  CookieBloc _cookieBloc;
-
+  RecipeBloc _recipeBloc,recipeBloc;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _foodBloc = BlocProvider.of<FoodBloc>(context);
-    _cookieBloc = BlocProvider.of<CookieBloc>(context);
-    _foodBloc.add(LoadFoodEvent());
-    _cookieBloc.add(LoadCookieEvent());
+    _recipeBloc= BlocProvider.of<RecipeBloc>(context);
+    recipeBloc= BlocProvider.of<RecipeBloc>(context);
+    _recipeBloc.add(LoadFoodEvent());
   }
 
   @override
@@ -49,10 +44,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelPadding: EdgeInsets.symmetric(vertical: 15),
                   labelColor: ColorsPalette.blackDark,
-                  labelStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Adobe_Song'),
+                  labelStyle: Typograph.semiTitle,
                   unselectedLabelColor: ColorsPalette.tealDark.withOpacity(0.5),
                   indicator: CircleTabIndicator(
                       color: ColorsPalette.tealDark, radius: 5),
@@ -72,9 +64,10 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                 flex: 5,
                 child: TabBarView(
                   children: [
-                    BlocBuilder<FoodBloc, FoodState>(
+                    BlocBuilder<RecipeBloc, RecipeState>(
+                      cubit: _recipeBloc,
                       builder: (context, state) {
-                        if (state is SuccessFoodState) {
+                        if (state is RecipeFoodSuccessState) {
                           final foods = state.foods;
                           if (foods == null) {
                             return CircularProgressIndicator();
@@ -210,12 +203,18 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                         return Container();
                       },
                     ),
-                    BlocBuilder<CookieBloc, CookieState>(
+                    BlocBuilder<RecipeBloc, RecipeState>(
+                      cubit: recipeBloc,
                       builder: (context, state) {
-                        if (state is SuccessCookieState) {
-                          final cookies = state.cookies;
+                        if (state is RecipeFoodSuccessState) {
+                          final foods = state.foods;
+                          if(foods.isEmpty){
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           return ListView.builder(
-                              itemCount: cookies.length,
+                              itemCount: foods.length,
                               itemBuilder: (context, index) {
                                 return RotatedBox(
                                   quarterTurns: 1,
@@ -253,7 +252,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                   bounds.height));
                                             },
                                             child: Image.network(
-                                              cookies[index].image,
+                                              foods[index].image,
                                               fit: BoxFit.cover,
                                               height:
                                                   SizeConfig.screenHeight * 0.5,
@@ -271,7 +270,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                     BorderRadius.circular(20),
                                                 color: ColorsPalette.tealDark),
                                             child: Text(
-                                              "Cookies",
+                                              "Food",
                                               style: TextStyle(
                                                   color:
                                                       ColorsPalette.whiteMedium,
@@ -291,7 +290,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: Text(
-                                              cookies[index].title,
+                                              foods[index].title,
                                               style: TextStyle(
                                                   fontFamily: "Calibri_Normal",
                                                   fontSize: 18,

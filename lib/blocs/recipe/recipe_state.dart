@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foodie/models/food.dart';
+import 'package:foodie/models/recipe.dart';
 
 abstract class RecipeState extends Equatable {
   const RecipeState();
