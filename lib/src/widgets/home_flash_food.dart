@@ -38,11 +38,11 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
             Expanded(
               flex: 0,
               child: Container(
-                padding: EdgeInsets.only(bottom: 5),
+                padding: EdgeInsets.only(bottom: SizeConfig.screenWidth*0.01),
                 child: TabBar(
                   indicatorWeight: 0,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  labelPadding: EdgeInsets.symmetric(vertical: 15),
+                  labelPadding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight*0.02),
                   labelColor: ColorsPalette.blackDark,
                   labelStyle: Typograph.semiTitle,
                   unselectedLabelColor: ColorsPalette.tealDark.withOpacity(0.5),
@@ -79,7 +79,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                   quarterTurns: 1,
                                   child: Container(
                                     width: SizeConfig.screenWidth * 0.5,
-                                    margin: EdgeInsets.all(10),
+                                    margin: EdgeInsets.all(SizeConfig.screenHeight*0.01),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
@@ -123,7 +123,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                           left: SizeConfig.screenWidth * 0.05,
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 5),
+                                                horizontal: SizeConfig.screenWidth*0.05, vertical: SizeConfig.screenHeight*0.01),
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(20),
@@ -136,7 +136,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                   fontFamily: "Caribri_Normal",
                                                   letterSpacing: 1.2,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
+                                                  fontSize: SizeConfig.screenHeight*0.02),
                                             ),
                                           ),
                                         ),
@@ -147,12 +147,12 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                           bottom: 0,
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                                horizontal: SizeConfig.screenHeight*0.01),
                                             child: Text(
                                               foods[index].title,
                                               style: TextStyle(
                                                   fontFamily: "Calibri_Normal",
-                                                  fontSize: 18,
+                                                  fontSize: SizeConfig.screenHeight*0.025,
                                                   color:
                                                       ColorsPalette.whiteLight),
                                             ),
@@ -179,7 +179,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   padding: EdgeInsets.symmetric(
-                                                      horizontal: 20),
+                                                      horizontal: SizeConfig.screenHeight*0.02),
                                                   child: Text(
                                                     "(35) Reviews",
                                                     style: TextStyle(
@@ -204,17 +204,12 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                       },
                     ),
                     BlocBuilder<RecipeBloc, RecipeState>(
-                      cubit: recipeBloc,
+                      cubit: _recipeBloc,
                       builder: (context, state) {
-                        if(state is RecipeFoodFailedState){
-                          print("****internet errror:${state.error}");
-                        }
                         if (state is RecipeFoodSuccessState) {
                           final foods = state.foods;
-                          if(foods.isEmpty){
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
+                          if (foods == null) {
+                            return CircularProgressIndicator();
                           }
                           return ListView.builder(
                               itemCount: foods.length,
@@ -223,7 +218,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                   quarterTurns: 1,
                                   child: Container(
                                     width: SizeConfig.screenWidth * 0.5,
-                                    margin: EdgeInsets.all(10),
+                                    margin: EdgeInsets.all(SizeConfig.screenHeight*0.01),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
@@ -267,7 +262,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                           left: SizeConfig.screenWidth * 0.05,
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 5),
+                                                horizontal: SizeConfig.screenWidth*0.05, vertical: SizeConfig.screenHeight*0.01),
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(20),
@@ -280,7 +275,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                   fontFamily: "Caribri_Normal",
                                                   letterSpacing: 1.2,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
+                                                  fontSize: SizeConfig.screenHeight*0.02),
                                             ),
                                           ),
                                         ),
@@ -291,12 +286,12 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                           bottom: 0,
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                                horizontal: SizeConfig.screenHeight*0.01),
                                             child: Text(
                                               foods[index].title,
                                               style: TextStyle(
                                                   fontFamily: "Calibri_Normal",
-                                                  fontSize: 18,
+                                                  fontSize: SizeConfig.screenHeight*0.025,
                                                   color:
                                                       ColorsPalette.whiteLight),
                                             ),
@@ -323,7 +318,7 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   padding: EdgeInsets.symmetric(
-                                                      horizontal: 20),
+                                                      horizontal: SizeConfig.screenHeight*0.02),
                                                   child: Text(
                                                     "(35) Reviews",
                                                     style: TextStyle(

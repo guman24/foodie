@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodie/apis/service.dart';
 import 'package:foodie/blocs/connection/internet_bloc.dart';
 import 'package:foodie/blocs/connection/internet_event.dart';
-import 'file:///E:/Flutter%20Projects/foodie/lib/internet_service.dart';
 import 'package:foodie/blocs/connection/internet_state.dart';
 import 'package:foodie/src/pages/home_page.dart';
 import 'package:foodie/utils/const/Typograph.dart';
 import 'package:foodie/utils/const/colors.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:foodie/utils/config/size.dart';
 
 class NavPage extends StatelessWidget {
   @override
@@ -59,6 +58,7 @@ class _NavPageStatefulState extends State<NavPageStateful> {
   @override
   Widget build(BuildContext context) {
     // print("****connect $isInternetConnected");
+    SizeConfig().init(context);
     return BlocBuilder<InternetBloc, InternetState>(
       cubit: _internetBloc,
       builder: (context, state) {
@@ -88,6 +88,7 @@ class _NavPageStatefulState extends State<NavPageStateful> {
               child: _widgetOptions.elementAt(_selectedIndex),
             ),
             bottomNavigationBar: Container(
+              width: SizeConfig.screenWidth,
               decoration: BoxDecoration(
                   color: ColorsPalette.whiteLight,
                   borderRadius: BorderRadius.only(
@@ -100,14 +101,16 @@ class _NavPageStatefulState extends State<NavPageStateful> {
                   ]),
               child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 10, bottom: 30),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.04,
+                      vertical: SizeConfig.screenHeight * 0.02),
                   child: GNav(
-                      gap: 8,
+                      gap: SizeConfig.screenHeight*0.01,
                       activeColor: ColorsPalette.tealDark,
-                      iconSize: 28,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      iconSize: SizeConfig.screenHeight*0.04,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.05,
+                          vertical: SizeConfig.screenHeight * 0.009),
                       duration: Duration(milliseconds: 800),
                       tabBackgroundColor: ColorsPalette.tealGrey,
                       tabs: [
@@ -115,22 +118,22 @@ class _NavPageStatefulState extends State<NavPageStateful> {
                             icon: LineIcons.home,
                             iconColor: Typograph.tabBarIconColor,
                             text: 'Home',
-                            textStyle: Typograph.tabBarTitle),
+                            ),
                         GButton(
                             icon: LineIcons.heart_o,
                             iconColor: Typograph.tabBarIconColor,
                             text: 'Favourite',
-                            textStyle: Typograph.tabBarTitle),
+                        ),
                         GButton(
                             icon: LineIcons.location_arrow,
                             iconColor: Typograph.tabBarIconColor,
                             text: 'Location',
-                            textStyle: Typograph.tabBarTitle),
+                           ),
                         GButton(
-                            icon: LineIcons.bell_o,
+                            icon: LineIcons.comment_o,
                             iconColor: Typograph.tabBarIconColor,
-                            text: 'Notification',
-                            textStyle: Typograph.tabBarTitle),
+                            text: 'Message',
+                          ),
                       ],
                       selectedIndex: _selectedIndex,
                       onTabChange: (index) {

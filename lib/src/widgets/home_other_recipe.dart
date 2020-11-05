@@ -82,8 +82,8 @@ class _HomeOtherRecipeState extends State<HomeOtherRecipe> {
                               Positioned(
                                   left: SizeConfig.screenWidth * 0.1,
                                   child: Container(
-                                    height: 100,
-                                    width: 100,
+                                    height: SizeConfig.screenHeight * 0.12,
+                                    width: SizeConfig.screenWidth * 0.3,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
@@ -92,8 +92,8 @@ class _HomeOtherRecipeState extends State<HomeOtherRecipe> {
                                   )),
                               Positioned(
                                 left: SizeConfig.screenWidth * 0.4,
-                                top: 10,
-                                bottom: 10,
+                                top: SizeConfig.screenHeight * 0.01,
+                                bottom: SizeConfig.screenHeight * 0.01,
                                 right: 0,
                                 child: Container(
                                   alignment: Alignment.center,
@@ -102,15 +102,17 @@ class _HomeOtherRecipeState extends State<HomeOtherRecipe> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding:
-                                            EdgeInsets.only(top: 10, right: 10),
+                                        padding: EdgeInsets.only(
+                                            top: SizeConfig.screenHeight * 0.03,
+                                            right:
+                                                SizeConfig.screenHeight * 0.02),
                                         child: Text(
-                                          cookies[index].title,
+                                          "${cookies[index].title.substring(0,15)}",
                                           style: TextStyle(
                                               color: ColorsPalette.whiteLight,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: "Calibri_Normal",
-                                              fontSize: 18),
+                                              fontSize: SizeConfig.screenWidth*0.04),
                                         ),
                                       ),
                                       Row(
@@ -123,11 +125,12 @@ class _HomeOtherRecipeState extends State<HomeOtherRecipe> {
                                                 color:
                                                     ColorsPalette.whiteMedium,
                                                 fontFamily: "Calibri_Normal",
-                                                fontSize: 15),
+                                                fontSize: SizeConfig.screenWidth*0.04),
                                           ),
                                           IconButton(
                                             color: ColorsPalette.whiteLight,
                                             onPressed: () {},
+                                            iconSize: SizeConfig.screenWidth*0.04,
                                             icon: Icon(Icons.arrow_forward_ios),
                                           )
                                         ],
