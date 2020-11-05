@@ -48,6 +48,9 @@ class RecipeCookieSuccessState extends RecipeState {
 }
 
 class RecipeFoodFailedState extends RecipeState {
+  final String error;
+
+  RecipeFoodFailedState({this.error});
   @override
   // TODO: implement props
   List<Object> get props => null;

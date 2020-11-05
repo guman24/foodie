@@ -206,6 +206,9 @@ class _HomeFlashSectionState extends State<HomeFlashSection> {
                     BlocBuilder<RecipeBloc, RecipeState>(
                       cubit: recipeBloc,
                       builder: (context, state) {
+                        if(state is RecipeFoodFailedState){
+                          print("****internet errror:${state.error}");
+                        }
                         if (state is RecipeFoodSuccessState) {
                           final foods = state.foods;
                           if(foods.isEmpty){

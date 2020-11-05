@@ -21,9 +21,9 @@ class ApiServices {
       var foods = List<Recipe>();
       Response response =
           await get(foodUrl, headers: {'Content-Type': 'application/json'});
-      print("response status ${response.statusCode}");
+      // print("response status ${response.statusCode}");
       Map<String, dynamic> responseData = json.decode(response.body);
-      print(responseData['results'][0]);
+      // print(responseData['results'][0]);
       Iterable foodList = responseData['results'];
       foods = foodList.map((food) => Recipe.fromJson(food)).toList();
       return foods;
@@ -37,9 +37,7 @@ class ApiServices {
       var beers = List<Recipe>();
       Response response =
           await get(juiceUrl, headers: {'Content-Type': 'application/json'});
-      print("response status beer ${response.statusCode}");
       Map<String, dynamic> responseData = json.decode(response.body);
-      print(responseData['products'][0]);
       Iterable beerList = responseData['products'];
       beers = beerList.map((beer) => Recipe.fromJson(beer)).toList();
       return beers;
@@ -53,9 +51,8 @@ class ApiServices {
       var cookies = List<Recipe>();
       Response response =
           await get(cookieUrl, headers: {'Content-Type': 'application/json'});
-      print("response status cookie ${response.statusCode}");
+      // print("response status cookie ${response.statusCode}");
       Map<String, dynamic> responseData = json.decode(response.body);
-      print(responseData['products'][0]);
       Iterable cookieList = responseData['products'];
       cookies = cookieList.map((cookie) => Recipe.fromJson(cookie)).toList();
       return cookies;
@@ -69,9 +66,8 @@ class ApiServices {
       var burgers = List<Recipe>();
       Response response =
           await get(burgerUrl, headers: {'Content-Type': 'application/json'});
-      print("response status burger ${response.statusCode}");
+      // print("response status burger ${response.statusCode}");
       Map<String, dynamic> responseData = json.decode(response.body);
-      print(responseData['menuItems'][0]);
       Iterable burgerList = responseData['menuItems'];
       burgers = burgerList.map((burger) => Recipe.fromJson(burger)).toList();
       return burgers;
